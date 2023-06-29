@@ -18,7 +18,7 @@ export const useGenres = () => {
     cacheTime: 5 * 1000,
     keepPreviousData: true,
     queryFn: fetchGenres,
-    staleTime: 24 * 60 * 60 * 1000,
+    staleTime: 24 * 60 * 60 * 1000, // 24hrs
     // since genres dont have count and result properties.
     initialData: { count: genres.length, results: genres },
   });
