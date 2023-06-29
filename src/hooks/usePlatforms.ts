@@ -1,25 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import apiClient, { FetchResponse } from "../services/api-client";
+import { APIClient } from "../services/api-client";
 import platforms from "../data/platforms";
+
+const apiClient = new APIClient<Platform>("/platforms/lists/parents");
 export interface Platform {
   id: number;
   name: string;
   slug: string;
 }
 
-export const usePlatforms = () => {
-  const fetchGenres = () =>
-    apiClient
-      .get<FetchResponse<Platform>>("/platforms/lists/parents")
-      .then((res) => res.data);
-
-  return useQuery({
+export const usePlatforms = () =>
+  useQuery({
     queryKey: ["platforms"],
     cacheTime: 5 * 1000,
     keepPreviousData: true,
-    queryFn: fetchGenres,
+    queryFn: apiClient.getAll,
     staleTime: 24 * 60 * 60 * 1000, // 24hrs
     // since genres dont have count and result properties.
     initialData: { count: platforms.length, results: platforms },
   });
-};
