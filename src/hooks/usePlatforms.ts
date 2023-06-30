@@ -16,6 +16,5 @@ export const usePlatforms = () =>
     keepPreviousData: true,
     queryFn: apiClient.getAll,
     staleTime: 24 * 60 * 60 * 1000, // 24hrs
-    // since genres dont have count and result properties.
-    initialData: { count: platforms.length, results: platforms },
+    initialData: platforms,
   });
